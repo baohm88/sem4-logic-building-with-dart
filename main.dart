@@ -197,6 +197,28 @@ List<int> findIntersection(List<int> list1, List<int> list2) {
   return resultSet.toList();
 }
 
+// IV. Count working days
+int countWorkingDays(DateTime startDate, DateTime endDate) {
+  if (endDate.isBefore(startDate)) return 0;
+
+  int count = 0;
+  DateTime current = startDate;
+
+  while (!current.isAfter(endDate)) {
+    var weekday = current.weekday;
+
+    bool isWeekend = weekday == DateTime.saturday || weekday == DateTime.sunday;
+
+    if (!isWeekend) {
+      count++;
+    }
+    // move to next day
+    current = current.add(Duration(days: 1));
+  }
+
+  return count;
+}
+
 void main(List<String> args) {
   // 1. Normalize name
   print('\n1. NORMALIZE NAMES:');
@@ -264,4 +286,12 @@ void main(List<String> args) {
   print('\n8. FIND INTERSECTION OF 2 LISTS:');
   print(findIntersection([1, 2, 2, 1], [2, 2]));
   print(findIntersection([4, 9, 5], [9, 4, 9, 8, 4]));
+
+  // count working days
+  print('\n9. COUNT WORKING DAYS:');
+  print(countWorkingDays(DateTime(2025, 1, 10), DateTime(2025, 1, 13)));
+  print(countWorkingDays(DateTime(2025, 1, 11), DateTime(2025, 1, 12)));
+  print(countWorkingDays(DateTime(2025, 1, 13), DateTime(2025, 1, 17)));
+  print(countWorkingDays(DateTime(2025, 1, 13), DateTime(2025, 1, 13)));
 }
+
