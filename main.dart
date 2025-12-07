@@ -180,6 +180,23 @@ Map<String, List<Product>> groupByCategory(List<Product> products) {
   return grouped;
 }
 
+// VIII. Find intersection of 2 lists
+List<int> findIntersection(List<int> list1, List<int> list2) {
+  Set<int> set1 = list1.toSet();
+
+  // 1. create empty set
+  Set<int> resultSet = {};
+
+  // 2. if set1 contains num -> add to resultSet
+  for (var num in list2) {
+    if (set1.contains(num)) {
+      resultSet.add(num);
+    }
+  }
+  // 3. convert resultSet back to list
+  return resultSet.toList();
+}
+
 void main(List<String> args) {
   // 1. Normalize name
   print('\n1. NORMALIZE NAMES:');
@@ -242,4 +259,9 @@ void main(List<String> args) {
   grouped.forEach((category, items) {
     print('$category: $items');
   });
+
+  // find intersection of 2 lists
+  print('\n8. FIND INTERSECTION OF 2 LISTS:');
+  print(findIntersection([1, 2, 2, 1], [2, 2]));
+  print(findIntersection([4, 9, 5], [9, 4, 9, 8, 4]));
 }
