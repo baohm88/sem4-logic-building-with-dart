@@ -122,7 +122,7 @@ void moveZeros(List<int> numbers) {
 
   // 1. move non-zeros forward
   for (var num in numbers) {
-    if (num !=0) {
+    if (num != 0) {
       numbers[writeIndex] = num;
       writeIndex++;
     }
@@ -134,6 +134,22 @@ void moveZeros(List<int> numbers) {
   }
 }
 
+// VI. Find missing num
+int findMissingNumber(List<int> numbers) {
+  // 1. calculate expected sum from 1 - n
+  int n = numbers.length + 1;
+
+  int expectedSum = n * (n + 1) ~/ 2;
+
+  // 2. calculate actual sum
+  int actualSum = 0;
+  for (var num in numbers) {
+    actualSum += num;
+  }
+
+  // 3. difference is the missing number
+  return expectedSum - actualSum;
+}
 
 void main(List<String> args) {
   // 1. Normalize name
@@ -152,29 +168,34 @@ void main(List<String> args) {
   print(isAnagram('hello', 'world'));
   print(isAnagram('Dormitory', 'Dirty room'));
 
-
   // 2nd largest
   print('\n4. FIND SECOND LARGEST:');
   print(findSecondLargest([10, 5, 20, 20, 4, 8]));
-  print(findSecondLargest([5, 5, 5])); 
-  print(findSecondLargest([1, 2])); 
-  print(findSecondLargest([2])); 
-  print(findSecondLargest([-5, -2, -10, -1])); 
+  print(findSecondLargest([5, 5, 5]));
+  print(findSecondLargest([1, 2]));
+  print(findSecondLargest([2]));
+  print(findSecondLargest([-5, -2, -10, -1]));
 
   print('\n5. MOVE ZEROS:');
   final nums1 = [0, 1, 0, 3, 12];
   moveZeros(nums1);
-  print(nums1); // [1, 3, 12, 0, 0]
+  print(nums1); 
 
   final nums2 = [0, 0, 1];
   moveZeros(nums2);
-  print(nums2); // [1, 0, 0]
+  print(nums2); 
 
   final nums3 = [1, 2, 3];
   moveZeros(nums3);
-  print(nums3); // [1, 2, 3]
+  print(nums3); 
 
   final nums4 = [0, 0, 0];
   moveZeros(nums4);
-  print(nums4); // [0, 0, 0]
+  print(nums4); 
+
+  // missing number
+  print('\n6. FIND MISSING NUMBER:');
+  print(findMissingNumber([1, 2, 4, 6, 3, 7, 8]));
+  print(findMissingNumber([2, 3, 1, 5]));
+  print(findMissingNumber([1])); 
 }
