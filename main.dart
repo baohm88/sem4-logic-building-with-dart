@@ -151,6 +151,35 @@ int findMissingNumber(List<int> numbers) {
   return expectedSum - actualSum;
 }
 
+// VII. group products
+class Product {
+  String name;
+  String category;
+  double price;
+
+  Product(this.name, this.category, [this.price = 0]);
+
+  @override
+  String toString() => name;
+}
+
+Map<String, List<Product>> groupByCategory(List<Product> products) {
+  Map<String, List<Product>> grouped = {};
+
+  for (var product in products) {
+    var category = product.category;
+    // if the key of category doesn't exist -> create an empty list
+    if (!grouped.containsKey(category)) {
+      grouped[category] = [];
+    }
+
+    // add product to the list
+    grouped[category]!.add(product);
+  }
+
+  return grouped;
+}
+
 void main(List<String> args) {
   // 1. Normalize name
   print('\n1. NORMALIZE NAMES:');
@@ -179,23 +208,38 @@ void main(List<String> args) {
   print('\n5. MOVE ZEROS:');
   final nums1 = [0, 1, 0, 3, 12];
   moveZeros(nums1);
-  print(nums1); 
+  print(nums1);
 
   final nums2 = [0, 0, 1];
   moveZeros(nums2);
-  print(nums2); 
+  print(nums2);
 
   final nums3 = [1, 2, 3];
   moveZeros(nums3);
-  print(nums3); 
+  print(nums3);
 
   final nums4 = [0, 0, 0];
   moveZeros(nums4);
-  print(nums4); 
+  print(nums4);
 
   // missing number
   print('\n6. FIND MISSING NUMBER:');
   print(findMissingNumber([1, 2, 4, 6, 3, 7, 8]));
   print(findMissingNumber([2, 3, 1, 5]));
-  print(findMissingNumber([1])); 
+  print(findMissingNumber([1]));
+
+  // group products by category
+  print('\n7. GROUP PRODUCTS BY CATEGORY:');
+  final products = [
+    Product('Laptop', 'Electronic'),
+    Product('Ao thun', 'Fashion'),
+    Product('Dien thoai', 'Electronic'),
+    Product('Giay', 'Fashion'),
+  ];
+
+  final grouped = groupByCategory(products);
+
+  grouped.forEach((category, items) {
+    print('$category: $items');
+  });
 }
