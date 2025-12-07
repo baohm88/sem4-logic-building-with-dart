@@ -219,6 +219,69 @@ int countWorkingDays(DateTime startDate, DateTime endDate) {
   return count;
 }
 
+// X. Number to words
+
+String readThreeDigits(int number) {
+  final units = ['không', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
+
+  final tens = [
+    '',
+    'mười',
+    'hai mươi',
+    'ba mươi',
+    'bốn mươi',
+    'năm mươi',
+    'sáu mươi',
+    'bảy mươi',
+    'tám mươi',
+    'chín mươi',
+  ];
+
+  int hundreds = number ~/ 100;
+  int remainder = number % 100;
+  int ten = remainder ~/ 10;
+  int unit = remainder % 10;
+
+  List<String> parts = [];
+
+  if (hundreds > 0) {
+    parts.add('${units[hundreds]} trăm');
+  }
+
+  if (ten > 0) {
+    parts.add(tens[ten]);
+  }
+
+  if (unit > 0) {
+    parts.add(units[unit]);
+  }
+  return parts.join(' ');
+}
+
+String numberToWords(int number) {
+  if (number == 0) return 'Không';
+
+  int million = number ~/ 1000000;
+  int thousand = (number % 1000000) ~/ 1000;
+  int unit = number % 1000;
+
+  List<String> result = [];
+
+  if (million > 0) {
+    result.add('${readThreeDigits(million)} triệu');
+  }
+
+  if (thousand > 0) {
+    result.add('${readThreeDigits(thousand)} nghìn');
+  }
+
+  if (unit > 0) {
+    result.add(readThreeDigits(unit));
+  }
+
+  return result.join(' ');
+}
+
 void main(List<String> args) {
   // 1. Normalize name
   print('\n1. NORMALIZE NAMES:');
@@ -293,5 +356,11 @@ void main(List<String> args) {
   print(countWorkingDays(DateTime(2025, 1, 11), DateTime(2025, 1, 12)));
   print(countWorkingDays(DateTime(2025, 1, 13), DateTime(2025, 1, 17)));
   print(countWorkingDays(DateTime(2025, 1, 13), DateTime(2025, 1, 13)));
-}
 
+  // Number to words
+  print('\n10. NUMBER TO WORDS:');
+  print(numberToWords(1250000)); 
+  print(numberToWords(500)); 
+  print(numberToWords(15000)); 
+  print(numberToWords(100000000));
+}
